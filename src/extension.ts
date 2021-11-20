@@ -1,6 +1,9 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
+import { TextDecoder } from 'util';
 import * as vscode from 'vscode';
+
+var editor: vscode.TextEditor;
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -24,19 +27,22 @@ export function activate(context: vscode.ExtensionContext) {
 // this method is called when your extension is deactivated
 export function deactivate() {}
 
-function isInLine(pos : vscode.Position) {
-	if(!vscode.window.activeTextEditor) {
-		return;
-	}
-
-	let document = vscode.window.activeTextEditor.document;
-
-	return document.lineAt(pos.line).range.end.character >= pos.character;
-	
+function isInLine(pos : vscode.Position, oldLine: number) {
+	return editor.document.lineAt(pos.line).range.end.character >= pos.character;
 }
 
-function isOutOfBounds(line: number, editor: vscode.TextEditor) {
+function isOutOfBounds(line: number) {
 	return !(0 <= line && line < editor.document.lineCount);
+}
+
+function getTabDifference(pos1: number, pos2: number) {
+	return (getNumberOfTabs(pos1) - getNumberOfTabs(pos2));
+}
+
+function getNumberOfTabs(line: number) {
+	let textLine = editor.document.lineAt(line);
+	console.log(textLine);
+	return textLine.text.split(/\t|	/).length - 1;
 }
 
 function onUp() {
@@ -52,8 +58,9 @@ function changeSelections(sortFunction: (a: vscode.Selection, b: vscode.Selectio
 		return;
 	}
 
+	editor = vscode.window.activeTextEditor;
+
 	let selections = vscode.window.activeTextEditor.selections;
-	let editor = vscode.window.activeTextEditor;
 
 
 	let sortedSelections = selections.concat([]).sort(sortFunction);
@@ -73,14 +80,14 @@ function changeSelections(sortFunction: (a: vscode.Selection, b: vscode.Selectio
 
 		for (let i = 1; true ; i++) {
 
-			if(isOutOfBounds(mainSelect.anchor.line + increase * i, editor) || isOutOfBounds(mainSelect.active.line + increase * i, editor)) {
+			if(isOutOfBounds(mainSelect.anchor.line + increase * i) || isOutOfBounds(mainSelect.active.line + increase * i)) {
 				break;
 			}
 
-			let tmpPos1 = new vscode.Position(mainSelect.anchor.line + increase * i, mainSelect.anchor.character);
-			let tmpPos2 = new vscode.Position(mainSelect.active.line + increase * i, mainSelect.active.character);
+			let tmpPos1 = new vscode.Position(mainSelect.anchor.line + increase * i, mainSelect.anchor.character + getTabDifference(mainSelect.anchor.line, mainSelect.anchor.line + increase * i) * ((editor.options.tabSize as number) - 1));
+			let tmpPos2 = new vscode.Position(mainSelect.active.line + increase * i, mainSelect.active.character + getTabDifference(mainSelect.active.line, mainSelect.active.line + increase * i) * ((editor.options.tabSize as number) - 1));
 
-			if(isInLine(tmpPos1) && isInLine(tmpPos2)) {
+			if(isInLine(tmpPos1, mainSelect.anchor.line) && isInLine(tmpPos2, mainSelect.active.line)) {
 				pos1 = tmpPos1;
 				pos2 = tmpPos2;
 				break;
