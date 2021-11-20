@@ -2,6 +2,7 @@
 	"name": "better-column-select",
 	"displayName": "better-column-select",
 	"description": "better-column-select is an extension, which implements a column selection that skips empty lines.",
+	"publisher": "jan00bl",
 	"repository": {"url": "https://github.com/jan00bl/better-column-select"},
 	"version": "0.0.1",
 	"engines": {
