@@ -8,10 +8,6 @@ var editor: vscode.TextEditor;
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "better-column-select" is now active!');
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('better-column-select.up', () => {
@@ -41,7 +37,6 @@ function getTabDifference(pos1: number, pos2: number) {
 
 function getNumberOfTabs(line: number) {
 	let textLine = editor.document.lineAt(line);
-	console.log(textLine);
 	return textLine.text.split(/\t|	/).length - 1;
 }
 
