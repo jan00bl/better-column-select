@@ -10,14 +10,31 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:better-column-select.helloWorld"
+		"onCommand:better-column-select.up",
+		"onCommand:better-column-select.down"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "better-column-select.helloWorld",
-				"title": "Hello World"
+				"command": "better-column-select.up",
+				"title": "Column Select Up"
+			},
+			{
+				"command": "better-column-select.down",
+				"title": "Column Select Down"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "better-column-select.up",
+				"key": "alt+up",
+				"when": "textInputFocus"
+			},
+			{
+				"command": "better-column-select.down",
+				"key": "alt+down",
+				"when": "textInputFocus"
 			}
 		]
 	},
