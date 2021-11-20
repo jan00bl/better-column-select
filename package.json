@@ -1,7 +1,8 @@
 {
 	"name": "better-column-select",
 	"displayName": "better-column-select",
-	"description": "",
+	"description": "better-column-select is an extension, which implements a column selection that skips empty lines.",
+	"repository": {"url": "https://github.com/jan00bl/better-column-select"},
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.62.0"
