@@ -3,7 +3,9 @@
 	"displayName": "better-column-select",
 	"description": "better-column-select is an extension, which implements a column selection that skips empty lines.",
 	"publisher": "jan00bl",
-	"repository": {"url": "https://github.com/jan00bl/better-column-select"},
+	"repository": {
+		"url": "https://github.com/jan00bl/better-column-select"
+	},
 	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.62.0"
@@ -49,16 +51,16 @@
 		"test": "node ./out/test/runTest.js"
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.62.0",
 		"@types/glob": "^7.1.4",
-		"@types/mocha": "^9.0.0",
-		"@types/node": "14.x",
-		"@typescript-eslint/eslint-plugin": "^5.1.0",
-		"@typescript-eslint/parser": "^5.1.0",
-		"eslint": "^8.1.0",
+		"@types/mocha": "^9.1.0",
+		"@types/node": "^14.18.9",
+		"@types/vscode": "^1.63.1",
+		"@typescript-eslint/eslint-plugin": "^5.10.1",
+		"@typescript-eslint/parser": "^5.10.1",
+		"@vscode/test-electron": "^1.6.2",
+		"eslint": "^8.7.0",
 		"glob": "^7.1.7",
-		"mocha": "^9.1.3",
-		"typescript": "^4.4.4",
-		"@vscode/test-electron": "^1.6.2"
+		"mocha": "^9.2.0",
+		"typescript": "^4.5.5"
 	}
 }
